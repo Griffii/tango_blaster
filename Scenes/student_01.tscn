@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://4f8hm2k6srbk"]
+
+[ext_resource type="Texture2D" uid="uid://bl2k7lr7ttf53" path="res://Assets/Sprites/Student_01.png" id="1_axlqh"]
+
+[sub_resource type="GDScript" id="GDScript_sp1rd"]
+resource_name = "player"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ouv3p"]
+radius = 24.0
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_sp1rd")
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
+texture = ExtResource("1_axlqh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ouv3p")

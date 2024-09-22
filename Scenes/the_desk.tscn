@@ -1,0 +1,128 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ygw02lxsght"]
+
+[ext_resource type="Texture2D" uid="uid://cgcpkgxavp0ru" path="res://Assets/Sprites/TheDeskv1_Brown.png" id="1_fml27"]
+[ext_resource type="Texture2D" uid="uid://daul3hn671ic7" path="res://Assets/Sprites/White_Box_Large.png" id="1_y50dp"]
+[ext_resource type="PackedScene" uid="uid://4f8hm2k6srbk" path="res://Scenes/student_01.tscn" id="2_ghlyn"]
+
+[sub_resource type="GDScript" id="GDScript_meaim"]
+resource_name = "main"
+script/source = "extends Node2D
+
+@onready var health_number: Label = $Health_Label/Health_Number
+@onready var character_hiragana: CharacterBody2D = $character_hiragana
+
+# Prelaod the sprite character to spawn
+var character_scene = preload(\"res://Scenes/character_hiragana.tscn\")
+
+# Array of textures - Hiragana
+var textures_hiragana = [
+	preload(\"res://Assets/Characters/Hiragana/あ.png\"),
+	preload(\"res://Assets/Characters/Hiragana/い.png\"),
+	preload(\"res://Assets/Characters/Hiragana/う.png\"),
+	preload(\"res://Assets/Characters/Hiragana/え.png\"),
+	preload(\"res://Assets/Characters/Hiragana/お.png\")
+]
+
+# Character move speed
+var move_speed = 50
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	
+	# Set player health to 100
+	var health = 100
+	health_number.text = str(health)
+	
+		#Spawn 5 sprites with random textures
+	for i in range(5):
+		spawn_character()
+
+# Input event - mouse click
+func _input(event):
+	if event.is_action_pressed(\"click\"):
+		print(\"pew\")
+
+
+# Function to spawn sprite at random position and assign random texture
+func spawn_character():
+	# Instance the sprite scene
+	var character_instance = character_scene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	
+	# Get the Sprite2D child (assuming it's named '2dsprite')
+	var sprite_node = character_instance.get_node(\"Sprite2D\")
+	
+	# Choose a random texture from the texture array
+	var random_texture = textures_hiragana[randi() % textures_hiragana.size()]
+	
+	# Assign the random texture to the sprite texture property
+	sprite_node.texture = random_texture
+	
+	# Get the window width (1280) and height (720) # Currently pointless
+	# var window_width = 1280
+	# var window_height = 720
+
+	# Randomize the x position between 0 and window width, y is fixed at 0 (top edge)
+	var random_x_position = randi() % 1481 - 740  # Generates a random number between -740 and 740
+	character_instance.position = Vector2(random_x_position, -400)
+	
+	# Add sprite to current scene
+	add_child(character_instance)
+	
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	# Move all children towards (0, 0)
+	for child in get_children():
+		if child is CharacterBody2D:
+			_move_to_target(_delta, child)
+
+# Function to move the character towards (0, 248) - The center of desk
+func _move_to_target(delta, character_instance):
+	# Get the current position of the character
+	var current_position = character_instance.position
+	
+	# Calculate direction towards (0, 0)
+	var direction = (Vector2(0, 248) - current_position).normalized()
+	
+	# Move the character towards (0, 0) with a given speed
+	character_instance.position += direction * move_speed * delta
+	
+	
+"
+
+[node name="The_Desk" type="Node2D"]
+position = Vector2(0, -248)
+script = SubResource("GDScript_meaim")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(6, 3.88)
+
+[node name="Skybox" type="Sprite2D" parent="."]
+texture = ExtResource("1_y50dp")
+
+[node name="TheDesk" type="Sprite2D" parent="."]
+texture = ExtResource("1_fml27")
+
+[node name="Player" parent="." instance=ExtResource("2_ghlyn")]
+position = Vector2(0, 248)
+
+[node name="Health_Label" type="Label" parent="."]
+offset_left = 214.0
+offset_top = 200.0
+offset_right = 326.0
+offset_bottom = 245.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Health:"
+metadata/_edit_use_anchors_ = true
+
+[node name="Health_Number" type="Label" parent="Health_Label"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 2.0
+offset_right = 179.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "999"
