@@ -1,19 +1,23 @@
 [gd_scene load_steps=4 format=3 uid="uid://du0niykt2c8pu"]
 
+[ext_resource type="Script" path="res://Scripts/hiragana_sprite.gd" id="1_5i82b"]
 [ext_resource type="Texture2D" uid="uid://ol1r1jmyfyt1" path="res://Assets/Characters/Hiragana/あ.png" id="1_p02q1"]
-
-[sub_resource type="GDScript" id="GDScript_wek2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7l42"]
 size = Vector2(39, 42)
 
-[node name="Character_Hiragana" type="CharacterBody2D"]
-script = SubResource("GDScript_wek2p")
+[node name="Character_Hiragana" type="AnimatableBody2D" groups=["N6", "character"]]
+sync_to_physics = false
+script = ExtResource("1_5i82b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["N6", "character"]]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_p02q1")
+
+[node name="Area2D" type="Area2D" parent="." groups=["N6", "character"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["N6", "character"]]
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_b7l42")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_p02q1")
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

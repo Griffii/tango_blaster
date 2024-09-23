@@ -15,10 +15,21 @@ run/main_scene="res://Scenes/the_desk.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Scripts/global.gd"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+
+[global_group]
+
+N6=""
+student=""
+character=""
+projectile=""
 
 [input]
 

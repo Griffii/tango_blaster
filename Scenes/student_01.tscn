@@ -1,19 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://4f8hm2k6srbk"]
 
 [ext_resource type="Texture2D" uid="uid://bl2k7lr7ttf53" path="res://Assets/Sprites/Student_01.png" id="1_axlqh"]
-
-[sub_resource type="GDScript" id="GDScript_sp1rd"]
-resource_name = "player"
+[ext_resource type="Script" path="res://Scripts/student.gd" id="1_psh76"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ouv3p"]
 radius = 24.0
 
-[node name="Node2D" type="Node2D"]
-script = SubResource("GDScript_sp1rd")
+[node name="Student" type="CharacterBody2D" groups=["student"]]
+script = ExtResource("1_psh76")
 
-[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="Sprite2D" parent="." groups=["student"]]
 position = Vector2(0, -64)
 texture = ExtResource("1_axlqh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["student"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["student"]]
 shape = SubResource("CircleShape2D_ouv3p")
+
+[node name="shootingPoint" type="Marker2D" parent="."]
+position = Vector2(0, -80)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
