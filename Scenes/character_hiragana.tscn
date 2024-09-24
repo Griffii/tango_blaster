@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://du0niykt2c8pu"]
 
 [ext_resource type="Script" path="res://Scripts/hiragana_sprite.gd" id="1_5i82b"]
-[ext_resource type="Texture2D" uid="uid://ol1r1jmyfyt1" path="res://Assets/Characters/Hiragana/あ.png" id="1_p02q1"]
+[ext_resource type="Texture2D" uid="uid://d00th6qcyvch6" path="res://Assets/Characters/Default_Texture.png" id="2_fqq2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7l42"]
 size = Vector2(39, 42)
@@ -12,7 +12,7 @@ script = ExtResource("1_5i82b")
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["N6", "character"]]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_p02q1")
+texture = ExtResource("2_fqq2p")
 
 [node name="Area2D" type="Area2D" parent="." groups=["N6", "character"]]
 

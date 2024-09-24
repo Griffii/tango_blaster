@@ -1,60 +1,50 @@
 extends Node2D
 
 @onready var health_number: Label = $Health_Label/Health_Number
-@onready var character_hiragana: CharacterBody2D = $character_hiragana
-@onready var student_area_2d: Area2D = $Area2D
 
 
+# Path to the Hiragana character scene
+var hiragana_scene = preload("res://Scenes/character_hiragana.tscn")
 
-# Preload the sprite character to spawn
-var character_scene = preload("res://Scenes/character_hiragana.tscn")
-
-# Array of textures - Hiragana
-var textures_hiragana = [
-	preload("res://Assets/Characters/Hiragana/あ.png"),
-	preload("res://Assets/Characters/Hiragana/い.png"),
-	preload("res://Assets/Characters/Hiragana/う.png"),
-	preload("res://Assets/Characters/Hiragana/え.png"),
-	preload("res://Assets/Characters/Hiragana/お.png")
-]
-
-# Set variable for student
-var player: CharacterBody2D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	#Spawn 5 sprites
-	for i in range(5):
-		spawn_character_N6()
-
+	for i in range(10):
+		spawn_wave_forever()
+	
+	
 
 
 # Function to spawn hiragana sprite at random position and assign random texture
-func spawn_character_N6():
-	# Instance the sprite scene
-	var character_instance = character_scene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+func spawn_hiragana_character():
 	
-	# Get the Sprite2D child (assuming it's named '2dsprite')
+	# Instantiate 2D Kanji scene
+	var character_instance = hiragana_scene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	var sprite_node = character_instance.get_node("Sprite2D")
 	
-	# Choose a random texture from the hiragana texture array
-	var random_texture = textures_hiragana[randi() % textures_hiragana.size()]
+	# Pull a character from the array - 
+	var random_index = randi() % Global.hiragana_array.size()
+	var random_dict = Global.hiragana_array[random_index]
+	var character = random_dict["kana"]
+	##print("Selected: ", character)
 	
-	# Assign the random texture to the sprite texture property
-	sprite_node.texture = random_texture
+	# Convert the text to a sprite, assign it as texture
+	sprite_node.texture = Global.string_to_texture(character,128)
+	##sprite_node.texture = "res://Assets/Characters/Default_Texture.png"
+	
 	
 	# Randomize the x position between 0 and window width, y is fixed at 0 (top edge)
 	var random_x_position = randi() % 1481 - 740  # Generates a random number between -740 and 740
 	character_instance.position = Vector2(random_x_position, -400)
+	##print(character_instance.position)
 	
-	# Add sprite to current scene
+	# Add sprite to main scene
 	add_child(character_instance)
 	
-	# Store reference to this character in the sprite array
-	Global.sprite_array_type.append(character_instance.type)
-
+	# Store reference to this character in the sprite array tracking how many enemies are spawned
+	##Global.spawned_sprite_array.append(random_dict)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,7 +57,6 @@ func _process(_delta: float) -> void:
 	# Check health value and update
 	health_number.text = str(Global.player_health)
 	
-	
 
 # Function to move the character towards (0, 248) - The center of desk
 func _move_to_target(delta, character_instance):
@@ -79,3 +68,12 @@ func _move_to_target(delta, character_instance):
 	
 	# Move the character towards (0, 0) with a given speed
 	character_instance.position += direction * character_instance.speed * delta
+
+
+func spawn_wave_forever():
+	# Call the spawn_hiragana_sprite() function from the hiragana_sprite.gd script
+	while Global.player_health > 0:
+		spawn_hiragana_character()  # Call the function
+		
+		# Pause between spawns - 2 seconds
+		await get_tree().create_timer(2.0).timeout

@@ -10,15 +10,17 @@ radius = 24.0
 script = ExtResource("1_psh76")
 
 [node name="AnimatedSprite2D" type="Sprite2D" parent="." groups=["student"]]
-position = Vector2(0, -64)
+position = Vector2(0, -71)
+scale = Vector2(1.11719, 1.11719)
 texture = ExtResource("1_axlqh")
 
 [node name="Area2D" type="Area2D" parent="." groups=["student"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["student"]]
+position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_ouv3p")
 
 [node name="shootingPoint" type="Marker2D" parent="."]
-position = Vector2(0, -80)
+position = Vector2(0, -89)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
