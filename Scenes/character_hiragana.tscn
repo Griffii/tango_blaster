@@ -4,20 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://d00th6qcyvch6" path="res://Assets/Characters/Default_Texture.png" id="2_fqq2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7l42"]
-size = Vector2(39, 42)
+size = Vector2(43, 49)
 
-[node name="Character_Hiragana" type="AnimatableBody2D" groups=["N6", "character"]]
-sync_to_physics = false
+[node name="Hiragana" type="Area2D" groups=["N6", "character"]]
 script = ExtResource("1_5i82b")
 
-[node name="Sprite2D" type="Sprite2D" parent="." groups=["N6", "character"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 2.5)
+shape = SubResource("RectangleShape2D_b7l42")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fqq2p")
 
-[node name="Area2D" type="Area2D" parent="." groups=["N6", "character"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["N6", "character"]]
-position = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_b7l42")
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

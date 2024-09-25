@@ -1,26 +1,33 @@
 extends Area2D
 
 var id = ""
-var kana = ""
+var kanji = ""
 var reading = ""
+var meaning = ""
 var health = 1
 var damage = 1
 var speed = 100
 
-func set_kana(new_kana: String):
-	kana = new_kana
-func get_kana() -> String:
-	return kana
+## Functions to interact with variables - set/get
+func set_id(new_id: String):
+	id = new_id
+func get_id() -> String:
+	return id
+
+func set_kanji(new_kanji: String):
+	kanji = new_kanji
+func get_kanji() -> String:
+	return kanji
 
 func set_reading(new_reading: String):
 	reading = new_reading
 func get_reading() -> String:
 	return reading
 
-func set_id(new_id: String):
-	id = new_id
-func get_id() -> String:
-	return id
+func set_meaning(new_meaning: String):
+	meaning = new_meaning
+func get_meaning() -> String:
+	return meaning
 
 func get_damage() -> int:
 	return damage
@@ -31,7 +38,7 @@ func get_speed() -> int:
 
 #DEBUG Function to print all stored data in a doctionary format
 func print_data():
-	print(id, ", ", kana, ", ", reading, ", ", health, ", ", damage, ", ", speed)
+	print(id, ", ", kanji, ", ", reading, ", ", meaning,", ", health, ", ", damage, ", ", speed)
 
 # Remove sprite when collided with Player
 func _on_area_entered(area: Area2D) -> void:
@@ -45,17 +52,16 @@ func take_damage(damage_amount: int):
 	if health <= 0:
 		despawn()
 
-
-# Deletes the node and removes it from tracking array
+# Deletes the node
 func despawn():
 	# Check ID and remove from global array of spawned sprites
 	Global.remove_dict_by_id(id)
-	##print("Destroyed: ", id)
+	print("Destroyed: ", id, " - ", kanji, " - ", reading, " - ", meaning )
 	
 	# Check health, if 0 the sprite was destroyed and should award points to the player
 	##Maybe this should have a seperate function, but this works for now
 	if health <= 0:
-		Global.resources["n6_cards"] += 1
-		##print(Global.resources)
+		Global.resources["n5_cards"] += 1
+		print(Global.resources)
 	
 	queue_free()

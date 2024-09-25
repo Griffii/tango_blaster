@@ -1,0 +1,58 @@
+[
+    {"kana": "あ", "reading": "a"},
+    {"kana": "い", "reading": "i"},
+    {"kana": "う", "reading": "u"},
+    {"kana": "え", "reading": "e"},
+    {"kana": "お", "reading": "o"},
+    
+    {"kana": "か", "reading": "ka"},
+    {"kana": "き", "reading": "ki"},
+    {"kana": "く", "reading": "ku"},
+    {"kana": "け", "reading": "ke"},
+    {"kana": "こ", "reading": "ko"},
+    
+    {"kana": "さ", "reading": "sa"},
+    {"kana": "し", "reading": "shi"},
+    {"kana": "す", "reading": "su"},
+    {"kana": "せ", "reading": "se"},
+    {"kana": "そ", "reading": "so"},
+    
+    {"kana": "た", "reading": "ta"},
+    {"kana": "ち", "reading": "chi"},
+    {"kana": "つ", "reading": "tsu"},
+    {"kana": "て", "reading": "te"},
+    {"kana": "と", "reading": "to"},
+    
+    {"kana": "な", "reading": "na"},
+    {"kana": "に", "reading": "ni"},
+    {"kana": "ぬ", "reading": "nu"},
+    {"kana": "ね", "reading": "ne"},
+    {"kana": "の", "reading": "no"},
+    
+    {"kana": "は", "reading": "ha"},
+    {"kana": "ひ", "reading": "hi"},
+    {"kana": "ふ", "reading": "fu"},
+    {"kana": "へ", "reading": "he"},
+    {"kana": "ほ", "reading": "ho"},
+    
+    {"kana": "ま", "reading": "ma"},
+    {"kana": "み", "reading": "mi"},
+    {"kana": "む", "reading": "mu"},
+    {"kana": "め", "reading": "me"},
+    {"kana": "も", "reading": "mo"},
+    
+    {"kana": "や", "reading": "ya"},
+    {"kana": "ゆ", "reading": "yu"},
+    {"kana": "よ", "reading": "yo"},
+    
+    {"kana": "ら", "reading": "ra"},
+    {"kana": "り", "reading": "ri"},
+    {"kana": "る", "reading": "ru"},
+    {"kana": "れ", "reading": "re"},
+    {"kana": "ろ", "reading": "ro"},
+    
+    {"kana": "わ", "reading": "wa"},
+    {"kana": "を", "reading": "wo"},
+    
+    {"kana": "ん", "reading": "n"}
+]

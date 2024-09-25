@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://daul3hn671ic7" path="res://Assets/Sprites/White_Box_Large.png" id="1_y50dp"]
 [ext_resource type="PackedScene" uid="uid://4f8hm2k6srbk" path="res://Scenes/student_01.tscn" id="2_ghlyn"]
 
-[node name="The_Desk" type="Node2D" groups=["N6", "character", "student"]]
+[node name="The_Desk" type="Node2D"]
 script = ExtResource("1_xftdg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
