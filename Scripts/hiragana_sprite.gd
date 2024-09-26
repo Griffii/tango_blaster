@@ -5,7 +5,7 @@ var kana = ""
 var reading = ""
 var health = 1
 var damage = 1
-var speed = 100
+var speed = 150
 
 func set_kana(new_kana: String):
 	kana = new_kana

@@ -9,7 +9,6 @@ var bullet_damage = 1
 
 func _physics_process(delta):
 	position -= bullet_direction * speed * delta
-	
 	# Track distance to despawn after leaving screen
 	travelled_distance += speed * delta
 	if travelled_distance > despawn_range:

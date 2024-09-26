@@ -1,7 +1,96 @@
-[gd_scene load_steps=4 format=3 uid="uid://4f8hm2k6srbk"]
+[gd_scene load_steps=10 format=3 uid="uid://4f8hm2k6srbk"]
 
-[ext_resource type="Texture2D" uid="uid://bl2k7lr7ttf53" path="res://Assets/Sprites/Student_01.png" id="1_axlqh"]
 [ext_resource type="Script" path="res://Scripts/student.gd" id="1_psh76"]
+[ext_resource type="Texture2D" uid="uid://c7e3qrag04kt1" path="res://Assets/Sprites/Student_01-Sheet.png" id="2_17813"]
+
+[sub_resource type="Animation" id="Animation_x6roe"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_lao3x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7qor0"]
+resource_name = "sleeping"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_1eg8d"]
+resource_name = "blink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_acve7"]
+resource_name = "idle_with_blink"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 2, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ymq83"]
+_data = {
+"RESET": SubResource("Animation_lao3x"),
+"blink": SubResource("Animation_1eg8d"),
+"idle": SubResource("Animation_x6roe"),
+"idle_with_blink": SubResource("Animation_acve7"),
+"sleeping": SubResource("Animation_7qor0")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ouv3p"]
 radius = 24.0
@@ -10,17 +99,26 @@ radius = 24.0
 script = ExtResource("1_psh76")
 
 [node name="AnimatedSprite2D" type="Sprite2D" parent="." groups=["student"]]
+texture_filter = 1
 position = Vector2(0, -71)
 scale = Vector2(1.11719, 1.11719)
-texture = ExtResource("1_axlqh")
+texture = ExtResource("2_17813")
+hframes = 8
+
+[node name="shootingPoint" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(0, -11.6363)
+scale = Vector2(0.895103, 0.895103)
+
+[node name="Student_Animation" type="AnimationPlayer" parent="AnimatedSprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_ymq83")
+}
+autoplay = "idle_with_blink"
 
 [node name="Area2D" type="Area2D" parent="." groups=["student"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["student"]]
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_ouv3p")
-
-[node name="shootingPoint" type="Marker2D" parent="."]
-position = Vector2(0, -89)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

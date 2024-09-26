@@ -4,9 +4,9 @@ var id = ""
 var kanji = ""
 var reading = ""
 var meaning = ""
-var health = 1
-var damage = 1
-var speed = 110
+var health = 2
+var damage = 2
+var speed = 75
 
 ## Functions to interact with variables - set/get
 func set_id(new_id: String):
@@ -61,7 +61,7 @@ func despawn():
 	# Check health, if 0 the sprite was destroyed and should award points to the player
 	##Maybe this should have a seperate function, but this works for now
 	if health <= 0:
-		Global.resources["n5_cards"] += 1
+		Global.resources["n2_cards"] += 1
 		#print(Global.resources)
 	
 	queue_free()

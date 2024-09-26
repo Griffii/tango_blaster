@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5ygw02lxsght"]
+[gd_scene load_steps=6 format=3 uid="uid://b5ygw02lxsght"]
 
-[ext_resource type="Texture2D" uid="uid://cgcpkgxavp0ru" path="res://Assets/Sprites/TheDeskv1_Brown.png" id="1_fml27"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_xftdg"]
 [ext_resource type="Texture2D" uid="uid://daul3hn671ic7" path="res://Assets/Sprites/White_Box_Large.png" id="1_y50dp"]
 [ext_resource type="PackedScene" uid="uid://4f8hm2k6srbk" path="res://Scenes/student_01.tscn" id="2_ghlyn"]
+[ext_resource type="PackedScene" uid="uid://cwf4lb12cbg42" path="res://Scenes/desk_base_01.tscn" id="5_tmav2"]
+[ext_resource type="PackedScene" uid="uid://bixvt66j0w46g" path="res://Scenes/book_01.tscn" id="5_x1q0b"]
 
 [node name="The_Desk" type="Node2D"]
 script = ExtResource("1_xftdg")
@@ -13,9 +14,6 @@ scale = Vector2(6, 3.88)
 
 [node name="Skybox" type="Sprite2D" parent="."]
 texture = ExtResource("1_y50dp")
-
-[node name="TheDesk" type="Sprite2D" parent="."]
-texture = ExtResource("1_fml27")
 
 [node name="Player" parent="." instance=ExtResource("2_ghlyn")]
 position = Vector2(0, 248)
@@ -39,3 +37,8 @@ offset_bottom = 47.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "999"
+
+[node name="Book_01" parent="." instance=ExtResource("5_x1q0b")]
+position = Vector2(-2, 289)
+
+[node name="Desk_Base_01" parent="." instance=ExtResource("5_tmav2")]
